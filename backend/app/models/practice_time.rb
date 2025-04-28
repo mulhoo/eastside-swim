@@ -21,11 +21,8 @@ class PracticeTime < ApplicationRecord
   validates :location_zip, presence: true
   validates :location_country, presence: true
 
-  # Scopes
-  scope :on_day, ->(day) { where(day_of_week: day) }
-
   # Enum
-  enum day_of_week: {
+  enum :day_of_week {
     sunday: 0,
     monday: 1,
     tuesday: 2,
@@ -34,6 +31,9 @@ class PracticeTime < ApplicationRecord
     friday: 5,
     saturday: 6
   }
+
+  # Scopes
+  scope :on_day, ->(day) { where(day_of_week: day) }
 
   def time_range
     "#{start_time.strftime("%I:%M %p")} - #{end_time.strftime("%I:%M %p")}"

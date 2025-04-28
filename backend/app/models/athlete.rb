@@ -18,6 +18,8 @@ class Athlete < ApplicationRecord
   # Callbacks
   before_validation :strip_whitespace
 
+  # Enums
+
   # Scopes
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }

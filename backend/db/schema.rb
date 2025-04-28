@@ -222,11 +222,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_030623) do
     t.index ["name"], name: "index_sports_on_name", unique: true
   end
 
-  create_table "team_site_settings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tryouts", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "sport_id"

@@ -16,11 +16,8 @@ class Facility < ApplicationRecord
   validates :country, presence: true
   validates :facility_type, presence: true
 
-  # Scopes
-  scope :active, -> { where(active: true) }
-
   # Enums
-  enum facility_type: {
+  enum :facility_type {
     pool: 0,
     indoor_field: 1,
     outdoor_field: 2,
@@ -28,4 +25,7 @@ class Facility < ApplicationRecord
     track: 4,
     other: 5
   }
+
+  # Scopes
+  scope :active, -> { where(active: true) }
 end

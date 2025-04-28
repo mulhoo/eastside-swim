@@ -44,9 +44,23 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem 'rspec-rails', '~> 5.0'
+  gem "graphql", "~> 2.5"
+  gem 'mock_redis'
+  gem 'factory_bot_rails'
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'webmock'
 end
 
 gem "graphql", "~> 2.5"
 
 gem 'graphiql-rails', group: :development
+gem 'pundit'
+gem 'activeadmin'
+gem 'jwt'
+
+gem "bcrypt", "~> 3.1"
+gem 'sidekiq'
+gem 'activerecord', '~> 8.0'
+
 

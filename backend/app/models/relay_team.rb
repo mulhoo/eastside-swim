@@ -14,6 +14,8 @@ class RelayTeam < ApplicationRecord
   validates :heat_number, numericality: { only_integer: true }, allow_nil: true
   validates :lane_number, numericality: { only_integer: true }, allow_nil: true
 
+  # Enums
+
   # Scopes
   scope :completed, -> { where(completed: true) }
   scope :upcoming, -> { where(completed: false) }

@@ -8,6 +8,8 @@ class Tryout < ApplicationRecord
   validates :start_date, presence: true
   validates :form_structure, presence: true
 
+  # Enums
+
   # Scopes
   scope :active, -> { where(active: true) }
   scope :upcoming, -> { where("start_date >= ?", Date.today).order(start_date: :asc) }

@@ -13,10 +13,10 @@ class PracticeGroup < ApplicationRecord
   validates :age_min, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :age_max, numericality: { only_integer: true, greater_than: :age_min }
 
+  # Enums
+
   # Scopes
   scope :for_age, ->(age) { where("age_min <= ? AND age_max >= ?", age, age) }
-
-  # Enums
 
   def age_range
     "#{age_min}-#{age_max}"

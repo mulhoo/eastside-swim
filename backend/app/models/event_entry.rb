@@ -14,6 +14,8 @@ class EventEntry < ApplicationRecord
   validates :competition_name, presence: true
   validates :completed, inclusion: { in: [true, false] }
 
+  # Enums
+
   # Scopes
   scope :completed, -> { where(completed: true) }
   scope :upcoming, -> { where(completed: false) }

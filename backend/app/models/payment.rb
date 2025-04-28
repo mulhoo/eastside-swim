@@ -13,6 +13,16 @@ class Payment < ApplicationRecord
   validates :due_date, presence: true
   validates :paid, inclusion: { in: [true, false] }
 
+  # Enums
+  enum :payment_type {
+    athlete_dues: "athlete_dues",
+    coach_payment: "coach_payment",
+    pool_rental: "pool_rental",
+    meet_entry_fee: "meet_entry_fee",
+    merchandise: "merchandise",
+    other: "other"
+  }
+
   # Scopes
   scope :paid, -> { where(paid: true) }
   scope :unpaid, -> { where(paid: false) }
@@ -21,16 +31,6 @@ class Payment < ApplicationRecord
   scope :athlete_dues, -> { where(payment_type: :athlete_dues) }
   scope :coach_payments, -> { where(payment_type: :coach_payment) }
   scope :pool_rentals, -> { where(payment_type: :pool_rental) }
-
-  # Enums
-  enum payment_type: {
-    athlete_dues: "athlete_dues",
-    coach_payment: "coach_payment",
-    pool_rental: "pool_rental",
-    meet_entry_fee: "meet_entry_fee",
-    merchandise: "merchandise",
-    other: "other"
-  }
 
   def status
     return "Paid" if paid?

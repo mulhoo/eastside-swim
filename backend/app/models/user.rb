@@ -11,27 +11,25 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP
   validates :role, presence: true
 
-
-  # Scopes
-  scope :active, -> { where(active: true) }
-  scope :inactive, -> { where(active: false) }
-  scope :coaches, -> { where(role: :coach) }
-  scope :admins, -> { where(role: :admin) }
-  scope :members, -> { where(role: :member) }
-
-  scope :active_coaches, -> { active.coaches }
-  scope :active_admins, -> { active.admins }
-  scope :active_members, -> { active.members }
-
   # Enums
-  enum role: {
+  enum :role, {
     head_coach: 0,
     admin: 1,
     manager: 2,
     superadmin: 3,
     assistant_coach: 4,
-    volunteer: 5,
+    volunteer: 5
   }
+
+  # Scopes
+  scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
+  scope :admins, -> { where(role: :admin) }
+
+  scope :coaches, -> { where(role: :assistant_coach) }
+  scope :volunteers, -> { where(role: :volunteer) }
+  scope :active_coaches, -> { active.coaches }
+
 
   def full_name
     "#{first_name} #{last_name}".strip

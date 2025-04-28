@@ -1,6 +1,6 @@
 class Organization < ApplicationRecord
   # Associations
-  balongs_to :sport, optional: true
+  belongs_to :sport, optional: true
   has_many :users, dependent: :destroy
   has_many :athletes, dependent: :destroy
   has_many :practice_times, dependent: :destroy
@@ -23,37 +23,24 @@ class Organization < ApplicationRecord
   validates :website_link, presence: true
   validates :organization_type, presence: true
 
+  # Enums with distinct prefixes to avoid method name conflicts
+  enum :status, { active: 0, inactive: 1, pending: 2, suspended: 3 }, prefix: :org_status
+  enum :organization_type, { club: 0, high_school: 1, college: 2, masters: 3, youth_year_round: 4, rec_seasonal: 5 }, prefix: :org_type
+
   # Scopes
   scope :active, -> { where(status: :active) }
   scope :pending, -> { where(status: :pending) }
   scope :inactive, -> { where(status: :inactive) }
   scope :suspended, -> { where(status: :suspended) }
 
-  # Enums
-  enum status: {
-    active: 0,
-    inactive: 1,
-    pending: 2,
-    suspended: 3
-  }
-
-  enum organization_type: {
-    club: 0,
-    high_school: 1,
-    college: 2,
-    masters: 3,
-    youth_year_round: 4,
-    rec_seasonal: 5
-  }
-
   # Constants
   DEFAULT_TEAM_SITE_SETTINGS = {
     "primary_color": "#0055FF",
     "secondary_color": "#FFC300",
     "background_color": "#FFFFFF",
-    "logo_url": null,
-    "banner_image_url": null,
-    "custom_domain": null,
+    "logo_url": nil,
+    "banner_image_url": nil,
+    "custom_domain": nil,
     "show_schedule": true,
     "show_tryouts": true,
     "show_team_store": false,
