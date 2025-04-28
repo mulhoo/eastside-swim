@@ -1,21 +1,36 @@
 Rails.application.routes.draw do
-  get "static/index"
-  Rails.application.routes.draw do
-  get "static/index"
-    namespace :api do
-      # your API routes here
-    end
+  post "/graphql", to: "graphql#execute"
 
-    # React fallback route
-    get '*path', to: 'static#index', constraints: ->(req) { !req.xhr? && req.format.html? }
+  get "static/index"
+
+  namespace :api do
+    # Define your API routes here
   end
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql", as: :graphiql,
+      graphql_headers: -> (context) {
+        {
+          "Authorization" => "Bearer your_example_token"
+        }
+      },
+      title: "Eastside Swim GraphQL IDE",
+      initial_query: <<-GRAPHQL
+        query {
+          __schema {
+            types {
+              name
+            }
+          }
+        }
+      GRAPHQL
+    root to: redirect('/graphiql')
+  else
+    root to: proc { [200, {}, ['API is running']] }
+  end
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # React fallback route (catch-all)
+  get '*path', to: 'static#index', constraints: ->(req) { !req.xhr? && req.format.html? }
+
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 end
