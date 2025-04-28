@@ -1,0 +1,9 @@
+/* Import other CSS files */
+@import './_variables.css';
+@import './_login.css';
+
+/* Global styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}

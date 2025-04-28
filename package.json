@@ -1,8 +1,11 @@
 {
+  "private": true,
   "scripts": {
-    "frontend": "cd frontend && npm run dev",
+    "frontend:internal": "cd frontend-internal-app && npm run dev",
+    "frontend:external": "cd frontend-external-app && npm run dev",
     "backend": "cd backend && rails server",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+    "dev:internal": "concurrently \"npm run backend\" \"npm run frontend:internal\"",
+    "dev:external": "concurrently \"npm run backend\" \"npm run frontend:external\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
