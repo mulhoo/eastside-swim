@@ -20,7 +20,7 @@ RSpec.describe PracticeTime, type: :model do
 
   describe "enums" do
     it "defines days of the week" do
-      expect(PracticeTime.day_of_week.keys).to include(
+      expect(PracticeTime.day_of_weeks.keys).to include(
         "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
       )
     end

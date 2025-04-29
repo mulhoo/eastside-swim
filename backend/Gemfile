@@ -44,12 +44,14 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-  gem 'rspec-rails', '~> 5.0'
+  gem 'rspec-rails', '~> 6.0'
   gem "graphql", "~> 2.5"
   gem 'mock_redis'
   gem 'factory_bot_rails'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webmock'
+  gem 'database_cleaner-active_record'
+  gem 'faker'
 end
 
 gem "graphql", "~> 2.5"

@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   belongs_to :organization
+  belongs_to :facility
   has_many :event_entries, dependent: :destroy
   has_many :relay_teams, dependent: :destroy
 
@@ -13,7 +14,7 @@ class Event < ApplicationRecord
   validates :organization_registration_url, format: URI::regexp(%w[http https]), allow_blank: true
 
   # Enums
-  enum :status { upcoming: 0, ongoing: 1, completed: 2, canceled: 3 }
+  enum :status, { upcoming: 0, ongoing: 1, completed: 2, canceled: 3 }
 
   # Scopes
   scope :public_events, -> { where(is_public: true) }

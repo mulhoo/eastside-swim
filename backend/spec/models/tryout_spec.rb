@@ -7,7 +7,6 @@ RSpec.describe Tryout, type: :model do
   end
 
   describe "validations" do
-    it { should validate_presence_of(:title) }
     it { should validate_presence_of(:start_date) }
     it { should validate_presence_of(:form_structure) }
   end

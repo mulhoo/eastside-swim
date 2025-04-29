@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :event do
     association :organization
+    association :facility
+    
     name { "Pacific Northwest Swim Championship" }
     sport { "Swimming" }
     start_time { 1.week.from_now }

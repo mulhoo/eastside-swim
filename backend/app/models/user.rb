@@ -26,7 +26,7 @@ class User < ApplicationRecord
   scope :inactive, -> { where(active: false) }
   scope :admins, -> { where(role: :admin) }
 
-  scope :coaches, -> { where(role: :assistant_coach) }
+  scope :coaches, -> { where(role: [:head_coach, :assistant_coach]) }
   scope :volunteers, -> { where(role: :volunteer) }
   scope :active_coaches, -> { active.coaches }
 

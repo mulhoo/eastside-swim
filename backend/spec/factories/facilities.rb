@@ -1,7 +1,5 @@
 FactoryBot.define do
   factory :facility do
-    association :organization
-
     sequence(:name) { |n| "Facility #{n}" }
     address { "123 Main St" }
     city { "Seattle" }
@@ -13,5 +11,9 @@ FactoryBot.define do
     description { "An awesome facility." }
     active { true }
     facility_type { :pool }
+
+    after(:create) do |facility|
+      facility.organizations << create(:organization)
+    end
   end
 end

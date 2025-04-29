@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :relay_team do
     association :event
+
     team_name { "Boys 200 Medley Relay" }
     heat_number { 2 }
     lane_number { 5 }

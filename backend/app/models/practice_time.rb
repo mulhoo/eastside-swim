@@ -2,10 +2,10 @@ class PracticeTime < ApplicationRecord
   # Associations
   belongs_to :event
   belongs_to :athlete
-  belongs_to :practice_time_slot
   belongs_to :event_entry, optional: true
   belongs_to :organization
   belongs_to :practice_group
+  belongs_to :facility, optional: true
 
   # Callbacks
   validate :end_time_after_start_time
@@ -22,7 +22,7 @@ class PracticeTime < ApplicationRecord
   validates :location_country, presence: true
 
   # Enum
-  enum :day_of_week {
+  enum :day_of_week, {
     sunday: 0,
     monday: 1,
     tuesday: 2,

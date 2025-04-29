@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_28_030623) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_29_012628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,12 +81,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_030623) do
     t.string "host"
     t.bigint "organization_id", null: false
     t.bigint "sport_id"
+    t.bigint "facility_id", null: false
+    t.index ["facility_id"], name: "index_events_on_facility_id"
     t.index ["organization_id"], name: "index_events_on_organization_id"
     t.index ["sport_id"], name: "index_events_on_sport_id"
   end
 
   create_table "facilities", force: :cascade do |t|
-    t.bigint "organization_id", null: false
     t.string "name", null: false
     t.string "address", null: false
     t.string "city", null: false
@@ -100,7 +101,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_030623) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_facilities_on_organization_id"
+  end
+
+  create_table "organization_facilities", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "facility_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_id"], name: "index_organization_facilities_on_facility_id"
+    t.index ["organization_id", "facility_id"], name: "index_org_facilities", unique: true
+    t.index ["organization_id"], name: "index_organization_facilities_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -152,7 +162,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_030623) do
     t.string "name", null: false
     t.string "description"
     t.bigint "organization_id", null: false
-    t.string "group_name", null: false
     t.string "practice_days", default: [], array: true
     t.integer "age_min", null: false
     t.integer "age_max", null: false
@@ -176,6 +185,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_030623) do
     t.datetime "updated_at", null: false
     t.bigint "practice_group_id", null: false
     t.text "note"
+    t.bigint "facility_id", null: false
+    t.index ["facility_id"], name: "index_practice_times_on_facility_id"
     t.index ["organization_id"], name: "index_practice_times_on_organization_id"
     t.index ["practice_group_id"], name: "index_practice_times_on_practice_group_id"
   end
@@ -239,6 +250,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_030623) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "facility_id"
+    t.index ["facility_id"], name: "index_tryouts_on_facility_id"
     t.index ["organization_id"], name: "index_tryouts_on_organization_id"
     t.index ["sport_id"], name: "index_tryouts_on_sport_id"
   end
@@ -281,19 +294,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_030623) do
   add_foreign_key "athletes", "practice_groups"
   add_foreign_key "event_entries", "athletes"
   add_foreign_key "event_entries", "events"
+  add_foreign_key "events", "facilities"
   add_foreign_key "events", "organizations"
   add_foreign_key "events", "sports"
-  add_foreign_key "facilities", "organizations"
+  add_foreign_key "organization_facilities", "facilities"
+  add_foreign_key "organization_facilities", "organizations"
   add_foreign_key "organizations", "sports"
   add_foreign_key "payments", "athletes"
   add_foreign_key "payments", "organizations"
   add_foreign_key "payments", "users"
   add_foreign_key "practice_groups", "organizations"
+  add_foreign_key "practice_times", "facilities"
   add_foreign_key "practice_times", "organizations"
   add_foreign_key "practice_times", "practice_groups"
   add_foreign_key "relay_team_athletes", "athletes"
   add_foreign_key "relay_team_athletes", "relay_teams"
   add_foreign_key "relay_teams", "events"
+  add_foreign_key "tryouts", "facilities"
   add_foreign_key "tryouts", "organizations"
   add_foreign_key "tryouts", "sports"
   add_foreign_key "users", "organizations"

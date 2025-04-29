@@ -1,7 +1,8 @@
 class PracticeGroup < ApplicationRecord
   # Associations
   belongs_to :organization
-  has_many :practice_times
+  has_many :practice_times, dependent: :destroy
+  has_many :athletes, dependent: :nullify
 
   # Callbacks
   before_validation :strip_practice_days

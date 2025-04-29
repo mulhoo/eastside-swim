@@ -12,6 +12,7 @@ class Sport < ApplicationRecord
 
   # Enums
   enum :individual_or_team, { individual: 0, team: 1, both: 2 }
+  
   # Scopes
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }

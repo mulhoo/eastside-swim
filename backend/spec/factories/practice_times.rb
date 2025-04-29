@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :practice_time do
     association :organization
-    association :group
+    association :practice_group
     day_of_week { :monday }
     start_time { "16:00" }
     end_time { "17:30" }

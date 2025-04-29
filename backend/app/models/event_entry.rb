@@ -1,12 +1,10 @@
 class EventEntry < ApplicationRecord
   # Associations
-  belongs_to :organization
   belongs_to :practice_group, optional: true
   belongs_to :event
   belongs_to :athlete
 
   # Callbacks
-  before_validation :strip_whitespace
 
   # Validations
   validates :event_id, presence: true

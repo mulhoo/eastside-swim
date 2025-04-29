@@ -14,7 +14,7 @@ Rails.application.routes.draw do
           "Authorization" => "Bearer your_example_token"
         }
       },
-      title: "Eastside Swim GraphQL IDE",
+      title: "KeepUp GraphQL IDE",
       initial_query: <<-GRAPHQL
         query {
           __schema {

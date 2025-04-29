@@ -20,6 +20,8 @@ RSpec.describe Organization, type: :model do
     it { should validate_presence_of(:phone) }
     it { should validate_presence_of(:domain_name) }
     it { should validate_presence_of(:website_link) }
+
+    subject { create(:organization) }
     it { should validate_uniqueness_of(:domain_name).case_insensitive }
   end
 

@@ -1,6 +1,7 @@
 class Facility < ApplicationRecord
   # Associations
-  belongs_to :organization
+  has_many :organization_facilities
+  has_many :organizations, through: :organization_facilities
   has_many :events
   has_many :practice_times
   has_many :tryouts
@@ -17,7 +18,7 @@ class Facility < ApplicationRecord
   validates :facility_type, presence: true
 
   # Enums
-  enum :facility_type {
+  enum :facility_type, {
     pool: 0,
     indoor_field: 1,
     outdoor_field: 2,

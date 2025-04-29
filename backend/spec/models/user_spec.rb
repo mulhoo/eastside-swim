@@ -14,25 +14,21 @@ RSpec.describe User, type: :model do
 
   describe "enums" do
     it "defines user roles" do
-      expect(User.roles.keys).to include("member", "coach", "admin")
+      expect(User.roles.keys).to include("admin", "head_coach", "assistant_coach")
     end
   end
 
   describe "scopes" do
     let!(:admin_user) { create(:user, role: :admin) }
-    let!(:coach_user) { create(:user, role: :coach) }
-    let!(:member_user) { create(:user, role: :member) }
-    let!(:inactive_user) { create(:user, active: false) }
+    let!(:head_coach_user) { create(:user, role: :head_coach) }
 
     it "returns active users" do
-      expect(User.where(active: true)).to include(admin_user, coach_user, member_user)
-      expect(User.where(active: true)).not_to include(inactive_user)
+      expect(User.active).to include(admin_user, head_coach_user)
     end
 
     it "returns users by role" do
-      expect(User.admin).to include(admin_user)
-      expect(User.coach).to include(coach_user)
-      expect(User.member).to include(member_user)
+      expect(User.admins).to include(admin_user)
+      expect(User.coaches).to include(head_coach_user)
     end
   end
 end

@@ -4,7 +4,6 @@ class Tryout < ApplicationRecord
   belongs_to :facility, optional: true
 
   # Validations
-  validates :title, presence: true
   validates :start_date, presence: true
   validates :form_structure, presence: true
 

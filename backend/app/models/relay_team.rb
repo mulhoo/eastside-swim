@@ -1,6 +1,5 @@
 class RelayTeam < ApplicationRecord
   # Associations
-  belongs_to :organization
   belongs_to :practice_group, optional: true
   belongs_to :event
   has_many :relay_team_athletes, dependent: :destroy
@@ -23,5 +22,9 @@ class RelayTeam < ApplicationRecord
 
   def ordered_athletes
     relay_team_athletes.includes(:athlete).order(:order).map(&:athlete)
+  end
+
+  def full_team_name
+    [team_color, team_name].compact.join(" ")
   end
 end

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Facility, type: :model do
   describe "associations" do
-    it { should belong_to(:organization) }
+    it { should have_many(:organization_facilities) }
+    it { should have_many(:organizations).through(:organization_facilities) }
     it { should have_many(:events) }
     it { should have_many(:practice_times) }
     it { should have_many(:tryouts) }

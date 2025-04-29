@@ -3,7 +3,7 @@ FactoryBot.define do
     association :organization
     association :facility
 
-    sequence(:title) { |n| "Tryout #{n}" }
+    name { "Spring Tryout" }
     description { "This is a tryout for new athletes." }
     start_date { Date.today + 30 }
     end_date { Date.today + 32 }

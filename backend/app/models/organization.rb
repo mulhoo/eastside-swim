@@ -5,6 +5,10 @@ class Organization < ApplicationRecord
   has_many :athletes, dependent: :destroy
   has_many :practice_times, dependent: :destroy
   has_many :practice_groups, dependent: :destroy
+  has_many :organization_facilities
+  has_many :facilities, through: :organization_facilities
+  has_many :events, dependent: :destroy
+  has_many :payments, dependent: :destroy
 
   # Callbacks
   before_validation :normalize_domain_name
